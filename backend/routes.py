@@ -35,37 +35,43 @@ def count():
 ######################################################################
 @app.route("/picture", methods=["GET"])
 def get_pictures():
-    pass
+    return jsonify(data)
 
 ######################################################################
 # GET A PICTURE
 ######################################################################
-
-
 @app.route("/picture/<int:id>", methods=["GET"])
 def get_picture_by_id(id):
-    pass
-
+    for picture in data:
+        if picture["id"] == id:
+            return picture
+    return {"message": "picture not found"}, 404
 
 ######################################################################
 # CREATE A PICTURE
 ######################################################################
 @app.route("/picture", methods=["POST"])
 def create_picture():
-    pass
 
+   
+    picture_in = request.json
+    print(picture_in)
+
+    # check if the id is already in data, return 303 
+    for picture in data:
+        if picture_in["id"] == picture["id"]:
+            return {
+                "Message": f"picture with id {picture_in['id']} already present"
+            }, 302
+
+    data.append(picture_in)
+    return picture_in, 201
 ######################################################################
 # UPDATE A PICTURE
 ######################################################################
 
 
-@app.route("/picture/<int:id>", methods=["PUT"])
-def update_picture(id):
-    pass
-
 ######################################################################
 # DELETE A PICTURE
 ######################################################################
-@app.route("/picture/<int:id>", methods=["DELETE"])
-def delete_picture(id):
-    pass
+
