@@ -57,7 +57,7 @@ def create_picture():
     picture_in = request.json
     print(picture_in)
 
-    # check if the id is already in data, return 303 
+    # check if the id is already in data, return 302 
     for picture in data:
         if picture_in["id"] == picture["id"]:
             return {
